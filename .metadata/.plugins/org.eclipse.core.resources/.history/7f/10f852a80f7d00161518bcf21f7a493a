@@ -1,0 +1,21 @@
+/*
+ * piece.h
+ *
+ *  Created on: Sep 17, 2016
+ *      Author: timecat
+ */
+
+#ifndef PIECE_H_
+#define PIECE_H_
+
+#include "scene/main/node.h"
+
+virtual class Piece : public Node {
+	OBJ_TYPE(Piece, Node);
+
+
+};
+
+
+
+#endif /* PIECE_H_ */

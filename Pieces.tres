@@ -1,0 +1,114 @@
+[gd_resource type="TileSet" load_steps=13 format=1]
+
+[ext_resource path="res://img/king_white.png" type="Texture" id=1]
+[ext_resource path="res://img/queen_white.png" type="Texture" id=2]
+[ext_resource path="res://img/bishop_black.png" type="Texture" id=3]
+[ext_resource path="res://img/pawn_black.png" type="Texture" id=4]
+[ext_resource path="res://img/rook_white.png" type="Texture" id=5]
+[ext_resource path="res://img/knight_white.png" type="Texture" id=6]
+[ext_resource path="res://img/bishop_white.png" type="Texture" id=7]
+[ext_resource path="res://img/pawn_white.png" type="Texture" id=8]
+[ext_resource path="res://img/king_black.png" type="Texture" id=9]
+[ext_resource path="res://img/queen_black.png" type="Texture" id=10]
+[ext_resource path="res://img/rook_black.png" type="Texture" id=11]
+[ext_resource path="res://img/knight_black.png" type="Texture" id=12]
+
+[resource]
+
+0/name = "King_W"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/region = Rect2( 0, 0, 133, 133 )
+0/occluder_offset = Vector2( 66.5, 66.5 )
+0/navigation_offset = Vector2( 66.5, 66.5 )
+0/shape_offset = Vector2( 0, 0 )
+0/shapes = [  ]
+1/name = "Queen_W"
+1/texture = ExtResource( 2 )
+1/tex_offset = Vector2( 0, 0 )
+1/region = Rect2( 0, 0, 133, 133 )
+1/occluder_offset = Vector2( 66.5, 66.5 )
+1/navigation_offset = Vector2( 66.5, 66.5 )
+1/shape_offset = Vector2( 0, 0 )
+1/shapes = [  ]
+2/name = "Rook_W"
+2/texture = ExtResource( 5 )
+2/tex_offset = Vector2( 0, 0 )
+2/region = Rect2( 0, 0, 133, 133 )
+2/occluder_offset = Vector2( 66.5, 66.5 )
+2/navigation_offset = Vector2( 66.5, 66.5 )
+2/shape_offset = Vector2( 0, 0 )
+2/shapes = [  ]
+3/name = "Knight_W"
+3/texture = ExtResource( 6 )
+3/tex_offset = Vector2( 0, 0 )
+3/region = Rect2( 0, 0, 133, 133 )
+3/occluder_offset = Vector2( 66.5, 66.5 )
+3/navigation_offset = Vector2( 66.5, 66.5 )
+3/shape_offset = Vector2( 0, 0 )
+3/shapes = [  ]
+4/name = "Bishop_W"
+4/texture = ExtResource( 7 )
+4/tex_offset = Vector2( 0, 0 )
+4/region = Rect2( 0, 0, 133, 133 )
+4/occluder_offset = Vector2( 66.5, 66.5 )
+4/navigation_offset = Vector2( 66.5, 66.5 )
+4/shape_offset = Vector2( 0, 0 )
+4/shapes = [  ]
+5/name = "Pawn_W"
+5/texture = ExtResource( 8 )
+5/tex_offset = Vector2( 0, 0 )
+5/region = Rect2( 0, 0, 133, 133 )
+5/occluder_offset = Vector2( 66.5, 66.5 )
+5/navigation_offset = Vector2( 66.5, 66.5 )
+5/shape_offset = Vector2( 0, 0 )
+5/shapes = [  ]
+6/name = "King_B"
+6/texture = ExtResource( 9 )
+6/tex_offset = Vector2( 0, 0 )
+6/region = Rect2( 0, 0, 133, 133 )
+6/occluder_offset = Vector2( 66.5, 66.5 )
+6/navigation_offset = Vector2( 66.5, 66.5 )
+6/shape_offset = Vector2( 0, 0 )
+6/shapes = [  ]
+7/name = "Queen_B"
+7/texture = ExtResource( 10 )
+7/tex_offset = Vector2( 0, 0 )
+7/region = Rect2( 0, 0, 133, 133 )
+7/occluder_offset = Vector2( 66.5, 66.5 )
+7/navigation_offset = Vector2( 66.5, 66.5 )
+7/shape_offset = Vector2( 0, 0 )
+7/shapes = [  ]
+8/name = "Rook_B"
+8/texture = ExtResource( 11 )
+8/tex_offset = Vector2( 0, 0 )
+8/region = Rect2( 0, 0, 133, 133 )
+8/occluder_offset = Vector2( 66.5, 66.5 )
+8/navigation_offset = Vector2( 66.5, 66.5 )
+8/shape_offset = Vector2( 0, 0 )
+8/shapes = [  ]
+9/name = "Knight_B"
+9/texture = ExtResource( 12 )
+9/tex_offset = Vector2( 0, 0 )
+9/region = Rect2( 0, 0, 133, 133 )
+9/occluder_offset = Vector2( 66.5, 66.5 )
+9/navigation_offset = Vector2( 66.5, 66.5 )
+9/shape_offset = Vector2( 0, 0 )
+9/shapes = [  ]
+10/name = "Bishop_B"
+10/texture = ExtResource( 3 )
+10/tex_offset = Vector2( 0, 0 )
+10/region = Rect2( 0, 0, 133, 133 )
+10/occluder_offset = Vector2( 66.5, 66.5 )
+10/navigation_offset = Vector2( 66.5, 66.5 )
+10/shape_offset = Vector2( 0, 0 )
+10/shapes = [  ]
+11/name = "Pawn_B"
+11/texture = ExtResource( 4 )
+11/tex_offset = Vector2( 0, 0 )
+11/region = Rect2( 0, 0, 133, 133 )
+11/occluder_offset = Vector2( 66.5, 66.5 )
+11/navigation_offset = Vector2( 66.5, 66.5 )
+11/shape_offset = Vector2( 0, 0 )
+11/shapes = [  ]
+

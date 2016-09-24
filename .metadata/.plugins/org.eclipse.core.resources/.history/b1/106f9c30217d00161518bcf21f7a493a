@@ -1,0 +1,12 @@
+#include "chess_board.h"
+#include "settings.h"
+
+#if DEBUG == 1
+int main(int argc, char **argv) {
+
+	ChessBoard cb = new ChessBoard();
+
+	return 0;
+}
+#endif
+

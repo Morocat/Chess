@@ -1,0 +1,31 @@
+#ifndef PIECE_H_
+#define PIECE_H_
+
+#include "core/object_type_db.h"
+#include "scene/main/node.h"
+
+class Piece: public Node {
+OBJ_TYPE(Piece, Node)
+	;
+
+	const char WHITE = 0;
+	const char BLACK = 1;
+
+	const char PAWN = 0;
+	const char BISHOP = 1;
+	const char KNIGHT = 2;
+	const char ROOK = 3;
+	const char QUEEN = 4;
+	const char KING = 5;
+
+	char color;
+
+# board coordinates
+	var x
+	var y
+
+	var captured = false
+
+};
+
+#endif /* PIECE_H_ */

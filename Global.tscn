@@ -1,0 +1,177 @@
+[gd_scene load_steps=12 format=1]
+
+[ext_resource path="res://Scripts/Global.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/player.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/board.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/info.gd" type="Script" id=4]
+[ext_resource path="res://label_text.fnt" type="BitmapFont" id=5]
+[ext_resource path="res://img/game board.jpg" type="Texture" id=6]
+[ext_resource path="res://Scripts/board_view.gd" type="Script" id=7]
+[ext_resource path="res://img/bishop_white.png" type="Texture" id=8]
+[ext_resource path="res://img/knight_white.png" type="Texture" id=9]
+[ext_resource path="res://img/rook_white.png" type="Texture" id=10]
+[ext_resource path="res://img/queen_white.png" type="Texture" id=11]
+
+[node name="global" type="Node"]
+
+script/script = ExtResource( 1 )
+
+[node name="logic" type="Node" parent="."]
+
+[node name="player" type="Node" parent="logic"]
+
+script/script = ExtResource( 2 )
+
+[node name="board" type="Node" parent="logic"]
+
+script/script = ExtResource( 3 )
+
+[node name="info_control" type="Control" parent="."]
+
+rect/min_size = Vector2( 200, 600 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 600.0
+margin/top = 0.0
+margin/right = 800.0
+margin/bottom = 600.0
+script/script = ExtResource( 4 )
+
+[node name="Viewport" type="Viewport" parent="info_control"]
+
+rect = Rect2( 0, 0, 200, 600 )
+own_world = false
+world = null
+transparent_bg = false
+render_target/enabled = false
+render_target/v_flip = false
+render_target/clear_on_new_frame = true
+render_target/filter = false
+render_target/gen_mipmaps = false
+render_target/update_mode = 2
+audio_listener/enable_2d = false
+audio_listener/enable_3d = false
+physics/object_picking = false
+gui/disable_input = false
+
+[node name="player_turn" type="Label" parent="info_control/Viewport"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 100.0
+margin/bottom = 32.0
+custom_fonts/font = ExtResource( 5 )
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="check_state" type="Label" parent="info_control/Viewport"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 100.0
+margin/right = 40.0
+margin/bottom = 114.0
+custom_fonts/font = ExtResource( 5 )
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="board_control" type="Control" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 600.0
+margin/bottom = 600.0
+
+[node name="Viewport" type="Viewport" parent="board_control"]
+
+rect = Rect2( 0, 0, 600, 600 )
+own_world = false
+world = null
+transparent_bg = false
+render_target/enabled = false
+render_target/v_flip = false
+render_target/clear_on_new_frame = true
+render_target/filter = false
+render_target/gen_mipmaps = false
+render_target/update_mode = 2
+audio_listener/enable_2d = false
+audio_listener/enable_3d = false
+physics/object_picking = false
+gui/disable_input = false
+
+[node name="board_view" type="Sprite" parent="board_control/Viewport"]
+
+visibility/behind_parent = true
+texture = ExtResource( 6 )
+centered = false
+flip_h = true
+script/script = ExtResource( 7 )
+
+[node name="pawn_dialog" type="WindowDialog" parent="board_control"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 50.0
+margin/top = 200.0
+margin/right = 550.0
+margin/bottom = 400.0
+popup/exclusive = false
+window/title = ""
+
+[node name="bishop" type="Sprite" parent="board_control/pawn_dialog"]
+
+transform/pos = Vector2( 50, 100 )
+texture = ExtResource( 8 )
+
+[node name="knight" type="Sprite" parent="board_control/pawn_dialog"]
+
+transform/pos = Vector2( 175, 100 )
+texture = ExtResource( 9 )
+
+[node name="rook" type="Sprite" parent="board_control/pawn_dialog"]
+
+transform/pos = Vector2( 300, 100 )
+texture = ExtResource( 10 )
+
+[node name="queen" type="Sprite" parent="board_control/pawn_dialog"]
+
+transform/pos = Vector2( 425, 100 )
+texture = ExtResource( 11 )
+
+[node name="Label" type="Label" parent="board_control/pawn_dialog"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 500.0
+margin/bottom = 32.0
+custom_fonts/font = ExtResource( 5 )
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[connection signal="draw" from="info_control" to="info_control" method="_on_draw"]
+
+[connection signal="draw" from="board_control/Viewport/board_view" to="board_control/Viewport/board_view" method="_on_board_draw"]
+
+

@@ -1,0 +1,12 @@
+#include "node.h"
+
+class Chess_Board : public Node {
+	OBJ_TYPE(Chess_Board, Node);
+
+public:
+	Chess_Board();
+
+
+	protected:
+	    static void _bind_methods();
+};

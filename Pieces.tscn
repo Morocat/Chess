@@ -1,0 +1,78 @@
+[gd_scene load_steps=13 format=1]
+
+[ext_resource path="res://img/king_white.png" type="Texture" id=1]
+[ext_resource path="res://img/queen_white.png" type="Texture" id=2]
+[ext_resource path="res://img/rook_white.png" type="Texture" id=3]
+[ext_resource path="res://img/knight_white.png" type="Texture" id=4]
+[ext_resource path="res://img/bishop_white.png" type="Texture" id=5]
+[ext_resource path="res://img/pawn_white.png" type="Texture" id=6]
+[ext_resource path="res://img/king_black.png" type="Texture" id=7]
+[ext_resource path="res://img/queen_black.png" type="Texture" id=8]
+[ext_resource path="res://img/rook_black.png" type="Texture" id=9]
+[ext_resource path="res://img/knight_black.png" type="Texture" id=10]
+[ext_resource path="res://img/bishop_black.png" type="Texture" id=11]
+[ext_resource path="res://img/pawn_black.png" type="Texture" id=12]
+
+[node name="Node" type="Node"]
+
+[node name="King_W" type="Sprite" parent="."]
+
+transform/pos = Vector2( 49.6254, 49.6254 )
+texture = ExtResource( 1 )
+
+[node name="Queen_W" type="Sprite" parent="."]
+
+transform/pos = Vector2( 49.6254, 149.625 )
+texture = ExtResource( 2 )
+
+[node name="Rook_W" type="Sprite" parent="."]
+
+transform/pos = Vector2( 49.6254, 249.625 )
+texture = ExtResource( 3 )
+
+[node name="Knight_W" type="Sprite" parent="."]
+
+transform/pos = Vector2( 49.6254, 349.625 )
+texture = ExtResource( 4 )
+
+[node name="Bishop_W" type="Sprite" parent="."]
+
+transform/pos = Vector2( 49.6254, 449.625 )
+texture = ExtResource( 5 )
+
+[node name="Pawn_W" type="Sprite" parent="."]
+
+transform/pos = Vector2( 49.6254, 549.625 )
+texture = ExtResource( 6 )
+
+[node name="King_B" type="Sprite" parent="."]
+
+transform/pos = Vector2( 149.625, 49.6254 )
+texture = ExtResource( 7 )
+
+[node name="Queen_B" type="Sprite" parent="."]
+
+transform/pos = Vector2( 149.625, 149.625 )
+texture = ExtResource( 8 )
+
+[node name="Rook_B" type="Sprite" parent="."]
+
+transform/pos = Vector2( 149.625, 249.625 )
+texture = ExtResource( 9 )
+
+[node name="Knight_B" type="Sprite" parent="."]
+
+transform/pos = Vector2( 149.625, 349.625 )
+texture = ExtResource( 10 )
+
+[node name="Bishop_B" type="Sprite" parent="."]
+
+transform/pos = Vector2( 149.625, 449.625 )
+texture = ExtResource( 11 )
+
+[node name="Pawn_B" type="Sprite" parent="."]
+
+transform/pos = Vector2( 149.625, 549.625 )
+texture = ExtResource( 12 )
+
+

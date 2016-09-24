@@ -1,0 +1,8 @@
+#ifndef SETTINGS_H_
+#define SETTINGS_H_
+
+#define DEBUG 1
+
+
+
+#endif /* SETTINGS_H_ */

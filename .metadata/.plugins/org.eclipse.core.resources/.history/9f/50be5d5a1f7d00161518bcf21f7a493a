@@ -1,0 +1,34 @@
+#ifndef CHESS_BOARD_H_
+#define CHESS_BOARD_H_
+
+#include "scene/main/node.h"
+#include "piece.h"
+#include "core/object_type_db.h"
+
+#include <vector>
+using namespace std;
+
+class ChessBoard: public Node {
+OBJ_TYPE(ChessBoard, Node);
+
+public:
+	ChessBoard() ;
+	~ChessBoard(){};
+	String getHello();
+
+	void updateBoardState();
+	void resetPieces();
+
+protected:
+	static void _bind_methods();
+
+private:
+
+	Piece boardState[8][8];
+	Piece pieceList[32];
+
+	void createPieces();
+	void clearBoardState();
+};
+
+#endif
