@@ -21,3 +21,6 @@ static func array2d_contains(arr, value):
 			if (value == arr[i][j]):
 				return true
 	return false
+
+static func is_in_range(value, base, res):
+	return value <= base + res && value >= base - res

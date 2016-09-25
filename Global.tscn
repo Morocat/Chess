@@ -1,16 +1,18 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=14 format=1]
 
 [ext_resource path="res://Scripts/Global.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/player.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/board.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/info.gd" type="Script" id=4]
 [ext_resource path="res://label_text.fnt" type="BitmapFont" id=5]
-[ext_resource path="res://img/game board.jpg" type="Texture" id=6]
-[ext_resource path="res://Scripts/board_view.gd" type="Script" id=7]
-[ext_resource path="res://img/bishop_white.png" type="Texture" id=8]
-[ext_resource path="res://img/knight_white.png" type="Texture" id=9]
-[ext_resource path="res://img/rook_white.png" type="Texture" id=10]
-[ext_resource path="res://img/queen_white.png" type="Texture" id=11]
+[ext_resource path="res://large_text.fnt" type="BitmapFont" id=6]
+[ext_resource path="res://img/game board.jpg" type="Texture" id=7]
+[ext_resource path="res://Scripts/board_view.gd" type="Script" id=8]
+[ext_resource path="res://Scripts/promotion_dialog.gd" type="Script" id=9]
+[ext_resource path="res://img/bishop_white.png" type="Texture" id=10]
+[ext_resource path="res://img/knight_white.png" type="Texture" id=11]
+[ext_resource path="res://img/rook_white.png" type="Texture" id=12]
+[ext_resource path="res://img/queen_white.png" type="Texture" id=13]
 
 [node name="global" type="Node"]
 
@@ -33,10 +35,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 600.0
-margin/top = 0.0
-margin/right = 800.0
-margin/bottom = 600.0
+margin/left = 602.0
+margin/top = 2.0
+margin/right = 802.0
+margin/bottom = 602.0
 script/script = ExtResource( 4 )
 
 [node name="Viewport" type="Viewport" parent="info_control"]
@@ -64,9 +66,10 @@ size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 100.0
-margin/bottom = 32.0
+margin/right = 200.0
+margin/bottom = 17.0
 custom_fonts/font = ExtResource( 5 )
+text = "turn"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -78,13 +81,102 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
-margin/top = 100.0
-margin/right = 40.0
-margin/bottom = 114.0
+margin/top = 50.0
+margin/right = 200.0
+margin/bottom = 67.0
 custom_fonts/font = ExtResource( 5 )
+text = "check"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="Button" type="Button" parent="info_control/Viewport"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 75.0
+margin/right = 200.0
+margin/bottom = 95.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Reset"
+flat = false
+
+[node name="time_white" type="Label" parent="info_control/Viewport"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 400.0
+margin/right = 200.0
+margin/bottom = 437.0
+custom_fonts/font = ExtResource( 6 )
+text = "time_white"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="time_black" type="Label" parent="info_control/Viewport"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 200.0
+margin/right = 200.0
+margin/bottom = 237.0
+custom_fonts/font = ExtResource( 6 )
+text = "time_black"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="captured_white" type="GridContainer" parent="info_control/Viewport"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 100.0
+margin/right = 200.0
+margin/bottom = 200.0
+columns = 6
+
+[node name="captured_black" type="GridContainer" parent="info_control/Viewport"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 500.0
+margin/right = 200.0
+margin/bottom = 600.0
+columns = 6
+
+[node name="timer_white" type="Timer" parent="info_control"]
+
+process_mode = 1
+wait_time = 1500.0
+one_shot = false
+autostart = false
+
+[node name="timer_black" type="Timer" parent="info_control"]
+
+process_mode = 1
+wait_time = 1500.0
+one_shot = false
+autostart = false
 
 [node name="board_control" type="Control" parent="."]
 
@@ -96,6 +188,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 600.0
 margin/bottom = 600.0
+__meta__ = { "_edit_lock_":true }
 
 [node name="Viewport" type="Viewport" parent="board_control"]
 
@@ -117,13 +210,15 @@ gui/disable_input = false
 [node name="board_view" type="Sprite" parent="board_control/Viewport"]
 
 visibility/behind_parent = true
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 centered = false
 flip_h = true
-script/script = ExtResource( 7 )
+script/script = ExtResource( 8 )
 
-[node name="pawn_dialog" type="WindowDialog" parent="board_control"]
+[node name="promotion_dialog" type="PopupDialog" parent="."]
 
+process/pause_mode = 2
+visibility/visible = false
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -132,46 +227,63 @@ margin/left = 50.0
 margin/top = 200.0
 margin/right = 550.0
 margin/bottom = 400.0
-popup/exclusive = false
-window/title = ""
+popup/exclusive = true
+script/script = ExtResource( 9 )
 
-[node name="bishop" type="Sprite" parent="board_control/pawn_dialog"]
-
-transform/pos = Vector2( 50, 100 )
-texture = ExtResource( 8 )
-
-[node name="knight" type="Sprite" parent="board_control/pawn_dialog"]
-
-transform/pos = Vector2( 175, 100 )
-texture = ExtResource( 9 )
-
-[node name="rook" type="Sprite" parent="board_control/pawn_dialog"]
-
-transform/pos = Vector2( 300, 100 )
-texture = ExtResource( 10 )
-
-[node name="queen" type="Sprite" parent="board_control/pawn_dialog"]
-
-transform/pos = Vector2( 425, 100 )
-texture = ExtResource( 11 )
-
-[node name="Label" type="Label" parent="board_control/pawn_dialog"]
+[node name="Label" type="Label" parent="promotion_dialog"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 500.0
-margin/bottom = 32.0
+margin/left = 20.0
+margin/top = 20.0
+margin/right = 480.0
+margin/bottom = 52.0
 custom_fonts/font = ExtResource( 5 )
+text = "Choose a piece"
+align = 1
+valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="bishop" type="Sprite" parent="promotion_dialog"]
+
+transform/pos = Vector2( 25, 75 )
+texture = ExtResource( 10 )
+centered = false
+
+[node name="knight" type="Sprite" parent="promotion_dialog"]
+
+transform/pos = Vector2( 125, 75 )
+texture = ExtResource( 11 )
+centered = false
+
+[node name="rook" type="Sprite" parent="promotion_dialog"]
+
+transform/pos = Vector2( 225, 75 )
+texture = ExtResource( 12 )
+centered = false
+
+[node name="queen" type="Sprite" parent="promotion_dialog"]
+
+transform/pos = Vector2( 325, 75 )
+texture = ExtResource( 13 )
+centered = false
+
 [connection signal="draw" from="info_control" to="info_control" method="_on_draw"]
 
+[connection signal="pressed" from="info_control/Viewport/Button" to="info_control" method="_on_Button_pressed"]
+
+[connection signal="timeout" from="info_control/timer_white" to="info_control" method="_on_timer_white_timeout"]
+
+[connection signal="timeout" from="info_control/timer_black" to="info_control" method="_on_timer_black_timeout"]
+
 [connection signal="draw" from="board_control/Viewport/board_view" to="board_control/Viewport/board_view" method="_on_board_draw"]
+
+[connection signal="about_to_show" from="promotion_dialog" to="promotion_dialog" method="_on_promotion_dialog_about_to_show"]
+
+[connection signal="popup_hide" from="promotion_dialog" to="promotion_dialog" method="_on_promotion_dialog_popup_hide"]
 
 

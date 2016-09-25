@@ -1,9 +1,0 @@
-#ifndef REG_TYPES_H
-#define REG_TYPES_H
-
-#define DEBUG 1
-
-void register_chess_types();
-void unregister_chess_types();
-
-#endif

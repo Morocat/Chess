@@ -15,7 +15,7 @@ const future_piece_list = Array()
 
 var player_node
 
-func _initialize():
+func _ready():
 	var root = get_tree().get_current_scene()
 	player_node = root.get_node("logic/player")
 	pass
@@ -26,6 +26,12 @@ static func get_color_range(color):
 	else:
 		return range(16, 32)
 
+func replace_piece(prev, cur):
+	for i in range(32):
+		if (piece_list[i] == prev):
+			piece_list[i] = cur
+			return
+
 func get_piece(coord):
 	for i in range(piece_list.size()):
 		if (!piece_list[i].captured):
@@ -34,7 +40,20 @@ func get_piece(coord):
 	return null
 
 # return: Array of Vector2 containing valid move locations
-func get_valid_moves(sel_piece):
+func get_moves_with_castling(sel_piece):
+	var moves = get_moves(sel_piece)
+	
+	# add castling if king
+	if (sel_piece.type == Piece.KING):
+		if (is_qs_castle_legal(sel_piece)):
+			moves.append([])
+			moves[moves.size() - 1].append(Vector2(sel_piece.x - 2, sel_piece.y))
+		if (is_ks_castle_legal(sel_piece)):
+			moves.append([])
+			moves[moves.size() - 1].append(Vector2(sel_piece.x + 2, sel_piece.y))
+	return moves
+
+func get_moves(sel_piece):
 	var moves = sel_piece.get_moves()
 	var i = 1 # 0 is reserved for the piece's own position
 	while (i < moves.size()):
@@ -66,43 +85,42 @@ func get_valid_moves(sel_piece):
 			else:
 				j += 1
 		i += 1
-	# add castling if rook/king
-	if (sel_piece.type == Piece.KING || sel_piece.type == Piece.ROOK):
-		if (is_qs_castle_legal(sel_piece)):
-			moves.append([])
-			if (sel_piece.type == Piece.KING):
-				moves[moves.size() - 1].append(Vector2(sel_piece.x - 2, sel_piece.y))
-			else:
-				moves[moves.size() - 1].append(Vector2(sel_piece.x + 3, sel_piece.y))
-		if (is_ks_castle_legal(sel_piece)):
-			moves.append([])
-			if (sel_piece.type == Piece.KING):
-				moves[moves.size() - 1].append(Vector2(sel_piece.x + 2, sel_piece.y))
-			else:
-				moves[moves.size() - 1].append(Vector2(sel_piece.x + 3, sel_piece.y))
 	return moves
 
-func is_qs_castle_legal(piece):
-	if (!player_node.get_player(piece.color).in_check):
+func is_qs_castle_legal(king):
+	if (player_node.get_player(king.color).in_check):
 		return false
-	if (is_square_attacked_by(Vector2(2, piece.y)) || is_square_attacked_by(Vector2(3, piece.y))):
+	if (king.hasMoved || get_piece(Vector2(0, king.y)).hasMoved):
 		return false
 	for i in range(1, 4):
-		if (get_piece(Vector2(i, piece.y)) != null):
+		if (get_piece(Vector2(i, king.y)) != null):
 			return false
+	if (is_square_attacked_by(Vector2(2, king.y), !king.color) || is_square_attacked_by(Vector2(3, king.y), !king.color)):
+		return false
 	return true
 
-func is_ks_castle_legal(piece):
-	if (!player_node.get_player(piece.color).in_check):
+func is_ks_castle_legal(king):
+	if (player_node.get_player(king.color).in_check):
 		return false
-	if (is_square_attacked_by(Vector2(5, piece.y)) || is_square_attacked_by(Vector2(6, piece.y))):
+	if (king.hasMoved || get_piece(Vector2(7, king.y)).hasMoved):
 		return false
 	for i in range(5, 7):
-		if (get_piece(Vector2(i, piece.y)) != null):
+		if (get_piece(Vector2(i, king.y)) != null):
 			return false
+	if (is_square_attacked_by(Vector2(5, king.y), !king.color) || is_square_attacked_by(Vector2(6, king.y), !king.color)):
+		return false
 	return true
 
 func is_square_attacked_by(square, color):
+	for i in get_color_range(color):
+		var piece = piece_list[i]
+		if (piece.captured):
+			continue
+		var moves = get_moves(piece)
+		for j in range(moves.size()):
+			for k in range(moves[j].size()):
+				if (moves[j][k].x == square.x && moves[j][k].y == square.y):
+					return true
 	return false
 
 func is_move_valid(sel_piece, coord):
@@ -122,20 +140,12 @@ func is_move_valid(sel_piece, coord):
 func is_player_in_check(color):
 	var king
 	var set = get_color_range(!color)
-	for i in range(piece_list.size()):
-		if (piece_list[i].color == color && piece_list[i].type == Piece.KING):
+	for i in get_color_range(color):
+		if (piece_list[i].type == Piece.KING):
 			king = piece_list[i]
 			break
-	for i in set:
-		if (piece_list[i] == king || piece_list[i].captured):
-			continue
-		var moves = get_valid_moves(piece_list[i])
-		for j in range(moves.size()):
-			for k in range(moves[j].size()):
-				if (moves[j][k].x == king.x && moves[j][k].y == king.y):
-					return true
-	return false
-	
+	return is_square_attacked_by(Vector2(king.x, king.y), !color)
+
 func is_checkmate(color):
 	# check all possible moves for checkmate
 	if (player_node.get_active_player().in_check):
@@ -145,24 +155,33 @@ func is_checkmate(color):
 			var piece = piece_list[i]
 			if (piece.captured):
 				continue
-			var moves = get_valid_moves(piece)
+			var moves = get_moves(piece)
 			for x in range(moves.size()):
 				for y in range(moves[x].size()):
 					var tmpX = piece.x
 					var tmpY = piece.y
+					var move_piece = get_piece(moves[x][y])
+					if (move_piece != null):
+						move_piece.captured = true
 					piece.x = moves[x][y].x
 					piece.y = moves[x][y].y
 					if (!is_player_in_check(player_node.player_turn)):
-						print(piece.toString())
 						piece.x = tmpX
 						piece.y = tmpY
+						print(piece.toString())
+						if (move_piece != null):
+							move_piece.captured = false
 						return false
 					piece.x = tmpX
 					piece.y = tmpY
+					if (move_piece != null):
+						move_piece.captured = false
 		return true
 	return false
 
 func _create_pieces():
+	piece_list.clear()
+	
 	for i in range(8):
 		piece_list.append(Pawn.new(Piece.WHITE))
 	
@@ -192,7 +211,6 @@ func _create_pieces():
 	
 	piece_list.append(Queen.new(Piece.BLACK))
 	piece_list.append(King.new(Piece.BLACK))
-	
 
 func _reset():
 	# pawns
@@ -228,7 +246,17 @@ func _reset():
 		piece_list[i].y = 1
 	for i in range(24, 32):
 		piece_list[i].y = 0
-	
-	for i in range(32):
-		piece_list[i].captured = false
-	
+
+static func get_new_piece(type, color):
+	if (type == Piece.PAWN):
+		return Pawn.new(color)
+	if (type == Piece.BISHOP):
+		return Bishop.new(color)
+	if (type == Piece.KNIGHT):
+		return Knight.new(color)
+	if (type == Piece.ROOK):
+		return Rook.new(color)
+	if (type == Piece.QUEEN):
+		return Queen.new(color)
+	if (type == Piece.KING):
+		return King.new(color)

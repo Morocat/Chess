@@ -26,6 +26,13 @@ class Piece:
 	
 	func toString():
 		return str("Piece Type: ", type, "\nColor: ", color, "\nXY: ", x, ",", y, "\nCaptured: ", captured)
+	
+	static func copy(from, to):
+		to.x = from.x
+		to.y = from.y
+		to.color = from.color
+		to.hasMoved = from.hasMoved
+		to.captured = from.captured
 
 class King extends Piece:
 	
